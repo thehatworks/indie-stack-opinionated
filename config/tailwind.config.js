@@ -7,6 +7,12 @@ module.exports = {
   mode: "jit",
   // match for compiler to detect used classes
   content: ["./app/**/*.{ts,tsx,jsx,js}"],
+  // prevent tailwind from purging daisui-react styles
+  safelist: [
+    {
+      pattern: /./,
+    },
+  ],
   theme: {
     fontFamily: {
       sans: ['"Exo 2"', ...defaultTheme.fontFamily.sans],
@@ -16,6 +22,7 @@ module.exports = {
     locales: ["en-US"],
     defaultLocale: "en-US",
   },
+  plugins: [require("daisyui")],
   future: {
     removeDeprecatedGapUtilities: true,
     defaultLineHeights: true,

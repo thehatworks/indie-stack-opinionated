@@ -33,10 +33,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   let errors = validateEmail(email);
   if (errors.length > 0) {
-    return json<ActionData>(
-      { errors: { email: errors[0] } },
-      { status: 400 }
-    );
+    return json<ActionData>({ errors: { email: errors[0] } }, { status: 400 });
   }
 
   errors = validatePassword(password);
@@ -108,7 +105,7 @@ export default function Join() {
                 autoComplete="email"
                 aria-invalid={actionData?.errors?.email ? true : undefined}
                 aria-describedby="email-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                className="input input-bordered w-full"
               />
               {actionData?.errors?.email && (
                 <div className="pt-1 text-red-700" id="email-error">
@@ -134,7 +131,7 @@ export default function Join() {
                 autoComplete="new-password"
                 aria-invalid={actionData?.errors?.password ? true : undefined}
                 aria-describedby="password-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                className="input input-bordered w-full"
               />
               {actionData?.errors?.password && (
                 <div className="pt-1 text-red-700" id="password-error">
@@ -145,10 +142,7 @@ export default function Join() {
           </div>
 
           <input type="hidden" name="redirectTo" value={redirectTo} />
-          <button
-            type="submit"
-            className="w-full rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
-          >
+          <button type="submit" className="btn btn-primary w-full">
             Create Account
           </button>
           <div className="flex items-center justify-center">

@@ -5,6 +5,7 @@ import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { requireUserId } from "~/auth/session.server";
 import { useUser } from "~/auth/session.component";
 import { getNoteListItems } from "~/models/note.server";
+import { LogoutIcon } from "@heroicons/react/outline";
 
 type LoaderData = {
   noteListItems: Awaited<ReturnType<typeof getNoteListItems>>;
@@ -22,24 +23,26 @@ export default function NotesPage() {
 
   return (
     <div className="flex h-full min-h-screen flex-col">
-      <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
-        <h1 className="text-3xl font-bold">
-          <Link to=".">Notes</Link>
-        </h1>
-        <p>{user.email}</p>
-        <Form action="/logout" method="post">
-          <button
-            type="submit"
-            className="rounded bg-slate-600 py-2 px-4 text-blue-100 hover:bg-blue-500 active:bg-blue-600"
-          >
-            Logout
-          </button>
-        </Form>
-      </header>
+      <nav className="navbar bg-primary">
+        <div className="navbar-start mx-2 px-2">
+          <h1 className="text-3xl font-bold">
+            <Link to=".">Notes</Link>
+          </h1>
+        </div>
+        <div className="navbar-center mx-2 px-2">{user.email}</div>
+        <div className="navbar-end mx-2 px-2">
+          <Form action="/logout" method="post">
+            <button type="submit" className="btn btn-neutral">
+              <LogoutIcon className="mr-2 w-6" />
+              Logout
+            </button>
+          </Form>
+        </div>
+      </nav>
 
       <main className="flex h-full bg-white">
         <div className="h-full w-80 border-r bg-gray-50">
-          <Link to="new" className="block p-4 text-xl text-blue-500">
+          <Link to="new" className="text-secondary block p-4 text-xl">
             + New Note
           </Link>
 
