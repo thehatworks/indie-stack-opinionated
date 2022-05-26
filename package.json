@@ -2,6 +2,9 @@
   "name": "indie-stack-template",
   "private": true,
   "sideEffects": false,
+  "browserslist": [
+    "> 0.3%"
+  ],
   "scripts": {
     "build": "run-s build:*",
     "build:css": "npm run generate:css -- --env production",
