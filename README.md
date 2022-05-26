@@ -1,22 +1,29 @@
-# Remix Indie Stack
+# @thehatworks/indie-stack-opinionated
 
-![The Remix Indie Stack](https://repository-images.githubusercontent.com/465928257/a241fa49-bd4d-485a-a2a5-5cb8e4ee0abf)
+Fork of the remix-run/indie-stack with customizations that make things quicker and easier to build with.
 
 Learn more about [Remix Stacks](https://remix.run/stacks).
 
-```sh
-npx create-remix@latest --template remix-run/indie-stack
+Get started quickly with:
+
+```shell
+npx create-remix@latest --template thehatworks/indie-stack-opinionated
 ```
 
-## What's in the stack
+## What's changed in our opinionated fork
+
+- Flexible Authentication with [remix-auth](https://github.com/sergiodxa/remix-auth)
+- Styling with [PostCSS](https://postcss.org/) & [Tailwind](https://tailwindcss.com/)
+- Opinionated Component Styling with [daisyUI](https://daisyui.com)
+- Icons by [Heroicons](https://heroicons.com/)
+
+## What's in the normal remix-run/indie-stack
 
 - [Fly app deployment](https://fly.io) with [Docker](https://www.docker.com/)
 - Production-ready [SQLite Database](https://sqlite.org)
 - Healthcheck endpoint for [Fly backups region fallbacks](https://fly.io/docs/reference/configuration/#services-http_checks)
 - [GitHub Actions](https://github.com/features/actions) for deploy on merge to production and staging environments
-- Flexible Authentication with [remix-auth](https://github.com/sergiodxa/remix-auth)
 - Database ORM with [Prisma](https://prisma.io)
-- Styling with [PostCSS](https://postcss.org/) & [Tailwind](https://tailwindcss.com/)
 - End-to-end testing with [Cypress](https://cypress.io)
 - Local third party request mocking with [MSW](https://mswjs.io)
 - Unit testing with [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com)
@@ -24,9 +31,7 @@ npx create-remix@latest --template remix-run/indie-stack
 - Linting with [ESLint](https://eslint.org)
 - Static Types with [TypeScript](https://typescriptlang.org)
 
-Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --template your/repo`! Make it your own.
-
-## Quickstart
+## Quickstart / Creating a new Project
 
 Click this button to create a [Gitpod](https://gitpod.io) workspace with the project set up and Fly pre-installed
 
@@ -45,15 +50,17 @@ Click this button to create a [Gitpod](https://gitpod.io) workspace with the pro
 
 - Initial setup:
 
-  ```sh
+```shell
   npm run setup
-  ```
+```
+
+## Development
 
 - Start dev server:
 
-  ```sh
+```shell
   npm run dev
-  ```
+```
 
 This starts your app in development mode, rebuilding assets on file changes.
 
@@ -64,10 +71,13 @@ The database seed script creates a new user with some data you can use to get st
 
 ### Relevant code:
 
-
-- creating users, and logging in and out [./app/models/user.server.ts](./app/models/user.server.ts)
-- user sessions, and verifying them [./app/auth/session.server.ts](./app/session.server.ts)
-- creating, and deleting notes [./app/models/note.server.ts](./app/models/note.server.ts)
+- [remix-auth](https://github.com/sergiodxa/remix-auth) is used for authentication
+  - creating users, and logging in and out [./app/models/user.server.ts](./app/models/user.server.ts)
+  - user sessions, and verifying them [./app/auth/session.server.ts](./app/session.server.ts)
+  - creating, and deleting notes [./app/models/note.server.ts](./app/models/note.server.ts)
+- this is just an internal database & cookie system, but you can begin to bring in any remix-auth based authentication mechanisms if you need to support other identity providers.
+  - there are plenty of strategies already implemented,
+  - here's an example of how you could [build your own to work with an OAuth 2 provider](https://github.com/sergiodxa/remix-auth/blob/main/docs/create-a-strategy.md)
 
 ## Digging in for real development
 
@@ -128,8 +138,8 @@ Prior to your first deployment, you'll need to do a few things:
 - Create two apps on Fly, one for staging and one for production:
 
   ```sh
-  fly apps create indie-stack-template
-  fly apps create indie-stack-template-staging
+  fly apps create indie-stack-opinionated
+  fly apps create indie-stack-opinionated-staging
   ```
 
   > **Note:** Make sure this name matches the `app` set in your `fly.toml` file. Otherwise, you will not be able to deploy.
@@ -151,8 +161,8 @@ Prior to your first deployment, you'll need to do a few things:
 - Add a `SESSION_SECRET` to your fly app secrets, to do this you can run the following commands:
 
   ```sh
-  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app indie-stack-template
-  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app indie-stack-template-staging
+  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app indie-stack-opinionated
+  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app indie-stack-opinionated-staging
   ```
 
   If you don't have openssl installed, you can also use [1Password](https://1password.com/password-generator) to generate a random secret, just replace `$(openssl rand -hex 32)` with the generated secret.
@@ -160,8 +170,8 @@ Prior to your first deployment, you'll need to do a few things:
 - Create a persistent volume for the sqlite database for both your staging and production environments. Run the following:
 
   ```sh
-  fly volumes create data --size 1 --app indie-stack-template
-  fly volumes create data --size 1 --app indie-stack-template-staging
+  fly volumes create data --size 1 --app indie-stack-opinionated --region ewr
+  fly volumes create data --size 1 --app indie-stack-opinionated-staging --region ewr
   ```
 
 Now that everything is set up you can commit and push your changes to your repo. Every commit to your `main` branch will trigger a deployment to your production environment, and every commit to your `dev` branch will trigger a deployment to your staging environment.
@@ -211,7 +221,7 @@ This project uses TypeScript. It's recommended to get TypeScript set up for your
 
 ### Linting
 
-This project uses ESLint for linting. That is configured in `.eslintrc.js`.
+This project uses ESLint for linting. That is configured in `config/eslint.config.js`.
 
 ### Formatting
 

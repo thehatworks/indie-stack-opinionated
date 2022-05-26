@@ -1,5 +1,5 @@
 {
-  "name": "indie-stack-template",
+  "name": "@thehatworks/indie-stack-opinionated",
   "private": true,
   "sideEffects": false,
   "scripts": {
