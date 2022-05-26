@@ -87,7 +87,7 @@ export default function Join() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-neutral"
             >
               Email address
             </label>
@@ -102,20 +102,20 @@ export default function Join() {
                 autoComplete="email"
                 aria-invalid={actionData?.errors?.email ? true : undefined}
                 aria-describedby="email-error"
-                className="input input-bordered w-full"
+                className="input input-bordered border-neutral w-full"
               />
-              {actionData?.errors?.email ? (
-                <div className="pt-1 text-red-700" id="email-error">
+              {actionData?.errors?.email && (
+                <div className="pt-1 text-error" id="email-error">
                   {actionData.errors.email}
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
 
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-neutral"
             >
               Password
             </label>
@@ -128,10 +128,10 @@ export default function Join() {
                 autoComplete="new-password"
                 aria-invalid={actionData?.errors?.password ? true : undefined}
                 aria-describedby="password-error"
-                className="input input-bordered w-full"
+                className="input input-bordered border-neutral w-full"
               />
               {actionData?.errors?.password ? (
-                <div className="pt-1 text-red-700" id="password-error">
+                <div className="pt-1 text-error" id="password-error">
                   {actionData.errors.password}
                 </div>
               ) : null}
@@ -142,11 +142,11 @@ export default function Join() {
           <button type="submit" className="btn btn-primary w-full">
             Create Account
           </button>
-          <div className="flex items-center justify-center">
-            <div className="text-center text-sm text-gray-500">
+          <div className="min-h-6 flex items-center justify-right">
+            <div className="grow text-right text-sm text-neutral">
               Already have an account?{" "}
               <Link
-                className="text-blue-500 underline"
+                className="link link-primary"
                 to={{
                   pathname: "/login",
                   search: searchParams.toString(),
