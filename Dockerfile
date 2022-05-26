@@ -36,6 +36,7 @@ RUN npx prisma generate
 
 ADD . .
 RUN npm run build
+RUN npm run compile:server
 
 # Finally, build the production image with minimal footprint
 FROM base
@@ -54,6 +55,7 @@ COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
 
 COPY --from=build /myapp/build /myapp/build
 COPY --from=build /myapp/public /myapp/public
+COPY --from=build /myapp/bin/server.js /myapp/bin/server.js
 ADD . .
 
 CMD ["npm", "start"]
