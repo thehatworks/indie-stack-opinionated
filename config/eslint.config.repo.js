@@ -6,7 +6,7 @@ const WARN = 1;
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: [
-    "./.eslintrc.js",
+    "./eslint.config.js",
     "@remix-run/eslint-config/internal",
     "plugin:markdown/recommended",
   ],
@@ -21,8 +21,8 @@ module.exports = {
     "import/order": [
       WARN,
       {
-        alphabetize: { caseInsensitive: true, order: "asc" },
-        groups: ["builtin", "external", "internal", "parent", "sibling"],
+        "alphabetize": { caseInsensitive: true, order: "asc" },
+        "groups": ["builtin", "external", "internal", "parent", "sibling"],
         "newlines-between": "always",
       },
     ],
