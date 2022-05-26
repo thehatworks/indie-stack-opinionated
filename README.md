@@ -16,7 +16,9 @@ npx create-remix --template remix-run/indie-stack
 - [GitHub Actions](https://github.com/features/actions) for deploy on merge to production and staging environments
 - Flexible Authentication with [remix-auth](https://github.com/sergiodxa/remix-auth)
 - Database ORM with [Prisma](https://prisma.io)
-- Styling with [Tailwind](https://tailwindcss.com/)
+- Styling with [PostCSS](https://postcss.org/) & [Tailwind](https://tailwindcss.com/)
+- Opinionated Component Styling with [daisyUI](https://daisyui.com)
+- Icons by [Heroicons](https://heroicons.com/)
 - End-to-end testing with [Cypress](https://cypress.io)
 - Local third party request mocking with [MSW](https://mswjs.io)
 - Unit testing with [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com)
