@@ -30,10 +30,7 @@ export const action = async ({ request }: ActionArgs) => {
 
   let errors = validateEmail(email);
   if (errors.length > 0) {
-    return json<ActionData>(
-      { errors: { email: errors[0] } },
-      { status: 400 }
-    );
+    return json<ActionData>({ errors: { email: errors[0] } }, { status: 400 });
   }
 
   errors = validatePassword(password);
@@ -100,7 +97,7 @@ export default function LoginPage() {
                 autoComplete="email"
                 aria-invalid={actionData?.errors?.email ? true : undefined}
                 aria-describedby="email-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                className="input input-bordered w-full"
               />
               {actionData?.errors?.email ? (
                 <div className="pt-1 text-red-700" id="email-error">
@@ -126,7 +123,7 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 aria-invalid={actionData?.errors?.password ? true : undefined}
                 aria-describedby="password-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                className="input input-bordered w-full"
               />
               {actionData?.errors?.password ? (
                 <div className="pt-1 text-red-700" id="password-error">
@@ -137,19 +134,16 @@ export default function LoginPage() {
           </div>
 
           <input type="hidden" name="redirectTo" value={redirectTo} />
-          <button
-            type="submit"
-            className="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
-          >
+          <button type="submit" className="btn btn-primary w-full">
             Log in
           </button>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
+                type="checkbox"
                 id="remember"
                 name="remember"
-                type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="checkbox"
               />
               <label
                 htmlFor="remember"

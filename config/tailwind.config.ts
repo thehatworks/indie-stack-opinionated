@@ -13,7 +13,7 @@ export default {
       sans: ['"Exo 2"', ...defaultTheme.fontFamily.sans],
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
   i18n: {
     locales: ["en-US"],
     defaultLocale: "en-US",
