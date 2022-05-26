@@ -14,7 +14,7 @@ npx create-remix@latest --template remix-run/indie-stack
 - Production-ready [SQLite Database](https://sqlite.org)
 - Healthcheck endpoint for [Fly backups region fallbacks](https://fly.io/docs/reference/configuration/#services-http_checks)
 - [GitHub Actions](https://github.com/features/actions) for deploy on merge to production and staging environments
-- Email/Password Authentication with [cookie-based sessions](https://remix.run/utils/sessions#md-createcookiesessionstorage)
+- Flexible Authentication with [remix-auth](https://github.com/sergiodxa/remix-auth)
 - Database ORM with [Prisma](https://prisma.io)
 - Styling with [PostCSS](https://postcss.org/) & [Tailwind](https://tailwindcss.com/)
 - End-to-end testing with [Cypress](https://cypress.io)
@@ -67,7 +67,7 @@ The database seed script creates a new user with some data you can use to get st
 This is a pretty simple note-taking app, but it's a good example of how you can build a full stack app with Prisma and Remix. The main functionality is creating users, logging in and out, and creating and deleting notes.
 
 - creating users, and logging in and out [./app/models/user.server.ts](./app/models/user.server.ts)
-- user sessions, and verifying them [./app/session.server.ts](./app/session.server.ts)
+- user sessions, and verifying them [./app/auth/session.server.ts](./app/session.server.ts)
 - creating, and deleting notes [./app/models/note.server.ts](./app/models/note.server.ts)
 - working with stylesheets (in [SCSS](https://sass-lang.com/guide)
   - You don't have to deal with official Sass, it's taken care of by PostCSS. 

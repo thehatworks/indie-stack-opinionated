@@ -4,8 +4,9 @@ import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
 
 import { verifyLogin } from "~/models/user.server";
-import { createUserSession, getUserId } from "~/session.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { createUserSession, getUserId } from "~/auth/session.server";
+import { validateEmail, validatePassword } from "~/auth/validation";
+import { safeRedirect } from "~/auth/session.component";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
@@ -13,38 +14,40 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({});
 };
 
+interface ActionData {
+  errors: {
+    email?: string | null;
+    password?: string | null;
+  };
+}
+
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
+  const email = formData.get("email") as string | null;
+  const password = formData.get("password") as string | null;
+  const redirectTo = safeRedirect(formData.get("redirectTo"), "/notes");
   const remember = formData.get("remember");
 
-  if (!validateEmail(email)) {
-    return json(
-      { errors: { email: "Email is invalid", password: null } },
+  let errors = validateEmail(email);
+  if (errors.length > 0) {
+    return json<ActionData>(
+      { errors: { email: errors[0] } },
       { status: 400 }
     );
   }
 
-  if (typeof password !== "string" || password.length === 0) {
-    return json(
-      { errors: { email: null, password: "Password is required" } },
+  errors = validatePassword(password);
+  if (errors.length > 0) {
+    return json<ActionData>(
+      { errors: { password: errors[0] } },
       { status: 400 }
     );
   }
 
-  if (password.length < 8) {
-    return json(
-      { errors: { email: null, password: "Password is too short" } },
-      { status: 400 }
-    );
-  }
-
-  const user = await verifyLogin(email, password);
+  const user = await verifyLogin(email!, password!);
 
   if (!user) {
-    return json(
+    return json<ActionData>(
       { errors: { email: "Invalid email or password", password: null } },
       { status: 400 }
     );
@@ -82,7 +85,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="text-neutral block text-sm font-medium"
             >
               Email address
             </label>

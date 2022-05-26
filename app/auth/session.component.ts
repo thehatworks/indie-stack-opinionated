@@ -58,14 +58,12 @@ export function useOptionalUser(): User | undefined {
 
 export function useUser(): User {
   const maybeUser = useOptionalUser();
+  const sentences = [
+    "No user found in root loader, but user is required by useUser.",
+    "If user is optional, try useOptionalUser instead.",
+  ];
   if (!maybeUser) {
-    throw new Error(
-      "No user found in root loader, but user is required by useUser. If user is optional, try useOptionalUser instead."
-    );
+    throw new Error(sentences.join(""));
   }
   return maybeUser;
-}
-
-export function validateEmail(email: unknown): email is string {
-  return typeof email === "string" && email.length > 3 && email.includes("@");
 }
