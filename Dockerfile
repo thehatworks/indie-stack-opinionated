@@ -36,6 +36,7 @@ RUN npx prisma generate
 
 ADD . .
 RUN npm run build
+RUN npm run compile:server
 
 # Finally, build the production image with minimal footprint
 FROM base
@@ -57,5 +58,7 @@ COPY --from=build /myapp/public /myapp/public
 COPY --from=build /myapp/package.json /myapp/package.json
 COPY --from=build /myapp/start.sh /myapp/start.sh
 COPY --from=build /myapp/prisma /myapp/prisma
+COPY --from=build /myapp/bin/server.js /myapp/bin/server.js
+# Why did I think I needed an ADD . . here?
 
 ENTRYPOINT [ "./start.sh" ]
