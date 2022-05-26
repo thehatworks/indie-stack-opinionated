@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 import type { Note } from "~/models/note.server";
 import { deleteNote } from "~/models/note.server";
 import { getNote } from "~/models/note.server";
-import { requireUserId } from "~/session.server";
+import { requireUserId } from "~/auth/session.server";
 
 type LoaderData = {
   note: Note;

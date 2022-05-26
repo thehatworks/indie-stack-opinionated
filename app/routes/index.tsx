@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 
-import { useOptionalUser } from "~/utils";
+import { useOptionalUser } from "~/auth/session.component";
 
 export default function Index() {
   const user = useOptionalUser();

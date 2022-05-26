@@ -7,10 +7,10 @@ import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useRef, useEffect } from "react";
 
-import { getUserId, createUserSession } from "~/session.server";
-
+import { getUserId, createUserSession } from "~/auth/session.server";
 import { createUser, getUserByEmail } from "~/models/user.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { safeRedirect } from "~/auth/session.component";
+import { validateEmail, validatePassword } from "~/auth/validation";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -27,32 +27,27 @@ interface ActionData {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const email = formData.get("email") as string | null;
+  const password = formData.get("password") as string | null;
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
 
-  if (!validateEmail(email)) {
+  let errors = validateEmail(email)
+  if (errors.length > 0) {
     return json<ActionData>(
-      { errors: { email: "Email is invalid" } },
+      { errors: { email: errors[0] } },
       { status: 400 }
     );
   }
 
-  if (typeof password !== "string" || password.length === 0) {
+  errors = validatePassword(password);
+  if (errors.length > 0) {
     return json<ActionData>(
-      { errors: { password: "Password is required" } },
+      { errors: { password: errors[0] } },
       { status: 400 }
     );
   }
 
-  if (password.length < 8) {
-    return json<ActionData>(
-      { errors: { password: "Password is too short" } },
-      { status: 400 }
-    );
-  }
-
-  const existingUser = await getUserByEmail(email);
+  const existingUser = await getUserByEmail(email!);
   if (existingUser) {
     return json<ActionData>(
       { errors: { email: "A user already exists with this email" } },
@@ -60,7 +55,7 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
-  const user = await createUser(email, password);
+  const user = await createUser(email!, password!);
 
   return createUserSession({
     request,

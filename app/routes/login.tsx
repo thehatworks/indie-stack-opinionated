@@ -7,9 +7,10 @@ import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useRef, useEffect } from "react";
 
-import { createUserSession, getUserId } from "~/session.server";
+import { createUserSession, getUserId } from "~/auth/session.server";
 import { verifyLogin } from "~/models/user.server";
-import { safeRedirect, validateEmail } from "~/utils";
+import { validateEmail, validatePassword } from "~/auth/validation";
+import { safeRedirect } from "~/auth/session.component";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -26,33 +27,28 @@ interface ActionData {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const email = formData.get("email") as string | null;
+  const password = formData.get("password") as string | null;
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/notes");
   const remember = formData.get("remember");
 
-  if (!validateEmail(email)) {
+  let errors = validateEmail(email);
+  if (errors.length > 0) {
     return json<ActionData>(
-      { errors: { email: "Email is invalid" } },
+      { errors: { email: errors[0] } },
       { status: 400 }
     );
   }
 
-  if (typeof password !== "string" || password.length === 0) {
+  errors = validatePassword(password);
+  if (errors.length > 0) {
     return json<ActionData>(
-      { errors: { password: "Password is required" } },
+      { errors: { password: errors[0] } },
       { status: 400 }
     );
   }
 
-  if (password.length < 8) {
-    return json<ActionData>(
-      { errors: { password: "Password is too short" } },
-      { status: 400 }
-    );
-  }
-
-  const user = await verifyLogin(email, password);
+  const user = await verifyLogin(email!, password!);
 
   if (!user) {
     return json<ActionData>(

@@ -13,8 +13,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { getUser } from "~/auth/session.server";
 import mainStylesheetUrl from "./styles/main.css";
-import { getUser } from "./session.server";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: mainStylesheetUrl }];
