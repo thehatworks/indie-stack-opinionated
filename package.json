@@ -28,7 +28,10 @@
   "browserslist": [
     "> 0.3%"
   ],
-  "prettier": {},
+  "prettier": {
+    "tabWidth": 2,
+    "quoteProps": "consistent"
+  },
   "eslintIgnore": [
     "/node_modules",
     "/build",
