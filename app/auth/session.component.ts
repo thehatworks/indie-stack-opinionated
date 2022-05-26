@@ -12,7 +12,7 @@ const DEFAULT_REDIRECT = "/";
  * @param {string} to The redirect destination
  * @param {string} defaultRedirect The redirect to use if the to is unsafe.
  */
- export function safeRedirect(
+export function safeRedirect(
   to: FormDataEntryValue | string | null | undefined,
   defaultRedirect: string = DEFAULT_REDIRECT
 ) {
@@ -38,7 +38,7 @@ export function useMatchesData(
 ): Record<string, unknown> | undefined {
   const matchingRoutes = useMatches();
   const route = useMemo(
-    () => matchingRoutes.find(route => route.id === id),
+    () => matchingRoutes.find((route) => route.id === id),
     [matchingRoutes, id]
   );
   return route?.data;

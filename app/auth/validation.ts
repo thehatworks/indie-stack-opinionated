@@ -14,10 +14,9 @@ export const validateEmail = (email: string | null) => {
   return [];
 };
 
-export const validatePassword = (password: string | null) => (
+export const validatePassword = (password: string | null) =>
   password === null || password.length === 0
     ? ["Password required"]
-    : password.length < 8 ?
-      ["Password is too short"] :
-      []
-);
+    : password.length < 8
+    ? ["Password is too short"]
+    : [];

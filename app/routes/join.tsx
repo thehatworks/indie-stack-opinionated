@@ -31,7 +31,7 @@ export const action: ActionFunction = async ({ request }) => {
   const password = formData.get("password") as string | null;
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
 
-  let errors = validateEmail(email)
+  let errors = validateEmail(email);
   if (errors.length > 0) {
     return json<ActionData>(
       { errors: { email: errors[0] } },

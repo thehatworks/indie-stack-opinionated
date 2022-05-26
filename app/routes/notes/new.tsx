@@ -53,9 +53,7 @@ export default function NewNotePage() {
   }, [actionData]);
 
   return (
-    <Form method="post"
-      className="flex flex-col gap-2 w-full"
-    >
+    <Form method="post" className="flex w-full flex-col gap-2">
       <div>
         <label className="flex w-full flex-col gap-1">
           <span>Title: </span>

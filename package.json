@@ -12,7 +12,7 @@
     "dev": "run-p dev:*",
     "dev:css": "npm run generate:css -- --env development --watch",
     "dev:remix": "cross-env NODE_ENV=development binode --require ./mocks -- @remix-run/dev:remix dev",
-    "format": "prettier --write .",
+    "format": "prisma format && prettier --write .",
     "generate:css": "postcss ./styles/main.scss --output ./app/styles/main.css --config ./config/ --verbose",
     "lint": "eslint -c ./config/eslint.config.js --cache --cache-location ./node_modules/.cache/eslint .",
     "setup": "prisma migrate dev && prisma db seed && npm run generate:css -- --env development",

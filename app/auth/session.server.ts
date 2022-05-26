@@ -17,7 +17,7 @@ export async function getUserId(
   return session.get(USER_SESSION_KEY);
 }
 
-export async function getUser(request: Request) {  
+export async function getUser(request: Request) {
   const userId = await getUserId(request);
   if (userId === undefined) return null;
 

@@ -2,7 +2,7 @@ import faker from "@faker-js/faker";
 
 describe("unauthorized smoke tests", () => {
   it("fly.io healthcheck should return something expected", () => {
-    cy.request("/healthcheck").then(response => {
+    cy.request("/healthcheck").then((response) => {
       expect(response.status).to.equal(200);
       expect(response.body).to.eql("OK");
     });
@@ -53,7 +53,7 @@ describe("authorized smoke tests", () => {
     cy.findByRole("button", { name: /create account/i }).click();
     cy.findByRole("link", { name: /notes/i }).click();
     cy.findByRole("button", { name: /logout/i }).click();
-    
+
     // test /login
     cy.findByRole("link", { name: /log in/i }).click();
     cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);

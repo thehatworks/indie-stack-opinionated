@@ -5,9 +5,9 @@ import { verifyLogin } from "~/models/user.server";
 import type { User } from "~/models/user.server";
 
 export const sessionErrorKey = "__sessionError";
-const authenticator = new Authenticator<User["id"] | null>(
-  sessionStorage, { sessionErrorKey }
-);
+const authenticator = new Authenticator<User["id"] | null>(sessionStorage, {
+  sessionErrorKey,
+});
 
 authenticator.use(
   new FormStrategy(async ({ form }) => {
