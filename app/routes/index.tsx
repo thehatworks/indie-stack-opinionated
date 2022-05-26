@@ -82,6 +82,11 @@ export default function Index() {
                 href: "https://prisma.io",
               },
               {
+                src: "https://raw.githubusercontent.com/postcss/brand/master/dist/postcss-logo-horizontal.svg",
+                alt: "PostCSS",
+                href: "https://postcss.org"
+              },
+              {
                 src: "https://user-images.githubusercontent.com/1500684/157764276-a516a239-e377-4a20-b44a-0ac7b65c8c14.svg",
                 alt: "Tailwind",
                 href: "https://tailwindcss.com",
