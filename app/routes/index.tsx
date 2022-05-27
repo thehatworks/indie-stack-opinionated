@@ -13,34 +13,36 @@ export default function Index() {
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
             <div className="lg:pb-18 px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pt-32">
-              <div className="absolute inset-0 tritravelers">
+              <div className="tritravelers absolute inset-0">
                 <div className="container">
-                  {_.map(_.range(200), (i) =>
+                  {_.map(_.range(200), (i) => (
                     <div key={`${i}`} className="tri"></div>
-                  )}
+                  ))}
                 </div>
               </div>
               <div className="hero">
                 <div className="hero-content text-center">
                   <div>
-                    <h1 className="text-secondary text-xl font-extrabold tracking-tight drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap">
+                    <h1 className="text-secondary whitespace-nowrap text-xl font-extrabold tracking-tight drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">
                       indie-stack-opinionated
                     </h1>
                     <p className="mt-12 sm:mt-16">
-                      <a className="link link-primary" href="https://github.com/thehatworks/remix-stack">
+                      <a
+                        className="link link-primary"
+                        href="https://github.com/thehatworks/remix-stack"
+                      >
                         Maintained by @thehatworks
                       </a>
-                      &nbsp;as a custom Remix Stack with our common tools. Forked originally from @remix-run/indie-stack. Approaching Production Ready in the limit ≐.
+                      &nbsp;as a custom Remix Stack with our common tools.
+                      Forked originally from @remix-run/indie-stack. Approaching
+                      Production Ready in the limit ≐.
                     </p>
                     <p className="mt-4">
-                      Check the README.md file for instructions on how to get this
-                      project deployed.
+                      Check the README.md file for instructions on how to get
+                      this project deployed.
                     </p>
                     {user ? (
-                      <Link
-                        to="/notes"
-                        className="btn btn-primary font-medium"
-                      >
+                      <Link to="/notes" className="btn btn-primary font-medium">
                         View Notes for {user.email}
                       </Link>
                     ) : (

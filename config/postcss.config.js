@@ -7,7 +7,7 @@ module.exports = (cfg) => {
     parser: scss ? "postcss-scss" : false,
     plugins: [
       require("tailwindcss")("./config/tailwind.config.js"),
-      require('@csstools/postcss-sass')(),
+      require("@csstools/postcss-sass")(),
       require("autoprefixer")(),
       require("postcss-flexbugs-fixes")(),
       require("postcss-sort-media-queries")(),

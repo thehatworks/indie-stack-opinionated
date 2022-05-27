@@ -71,12 +71,13 @@ async function main({ rootDirectory }) {
     fs.copyFile(
       path.join(rootDirectory, "remix.init", "deploy.yml"),
       path.join(rootDirectory, ".github/workflows/deploy.yml")
-    ),    
+    ),
     fs.rm(path.join(rootDirectory, ".github/ISSUE_TEMPLATE"), {
       recursive: true,
     }),
     fs.rm(path.join(rootDirectory, ".github/PULL_REQUEST_TEMPLATE.md")),
-    fs.rm(path.join(rootDirectory, ".github/workflows/test-stack-deploy.tml")),
+    fs.rm(path.join(rootDirectory, ".github/workflows/test-stack-deploy.yml")),
+    fs.rm(path.join(rootDirectory, ".eslintignore")),
   ]);
 
   execSync(`npm run setup`, { stdio: "inherit", cwd: rootDirectory });

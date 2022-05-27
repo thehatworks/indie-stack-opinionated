@@ -90,7 +90,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-neutral"
+              className="text-neutral block text-sm font-medium"
             >
               Email address
             </label>
@@ -105,10 +105,10 @@ export default function LoginPage() {
                 autoComplete="email"
                 aria-invalid={actionData?.errors?.email ? true : undefined}
                 aria-describedby="email-error"
-                className="input input-bordered w-full border-neutral"
+                className="input input-bordered border-neutral w-full"
               />
               {actionData?.errors?.email && (
-                <div className="pt-1 text-error" id="email-error">
+                <div className="text-error pt-1" id="email-error">
                   {actionData.errors.email}
                 </div>
               )}
@@ -118,7 +118,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-neutral"
+              className="text-neutral block text-sm font-medium"
             >
               Password
             </label>
@@ -134,7 +134,7 @@ export default function LoginPage() {
                 className="input input-bordered border-neutral w-full"
               />
               {actionData?.errors?.password && (
-                <div className="pt-1 text-error" id="password-error">
+                <div className="text-error pt-1" id="password-error">
                   {actionData.errors.password}
                 </div>
               )}
@@ -145,8 +145,8 @@ export default function LoginPage() {
           <button type="submit" className="btn btn-primary w-full">
             Log in
           </button>
-          <div className="flex items-center justify-between min-h-6">
-            <div className="flex items-center cursor-pointer">
+          <div className="min-h-6 flex items-center justify-between">
+            <div className="flex cursor-pointer items-center">
               <input
                 type="checkbox"
                 id="remember"
@@ -155,12 +155,12 @@ export default function LoginPage() {
               />
               <label
                 htmlFor="remember"
-                className="ml-2 block text-sm text-neutral"
+                className="text-neutral ml-2 block text-sm"
               >
                 Remember me
               </label>
             </div>
-            <div className="text-center text-sm text-neutral">
+            <div className="text-neutral text-center text-sm">
               Don't have an account?{" "}
               <Link
                 className="link link-primary"

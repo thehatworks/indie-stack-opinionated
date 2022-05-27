@@ -90,7 +90,7 @@ export default function Join() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-neutral"
+              className="text-neutral block text-sm font-medium"
             >
               Email address
             </label>
@@ -108,7 +108,7 @@ export default function Join() {
                 className="input input-bordered border-neutral w-full"
               />
               {actionData?.errors?.email && (
-                <div className="pt-1 text-error" id="email-error">
+                <div className="text-error pt-1" id="email-error">
                   {actionData.errors.email}
                 </div>
               )}
@@ -118,7 +118,7 @@ export default function Join() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-neutral"
+              className="text-neutral block text-sm font-medium"
             >
               Password
             </label>
@@ -134,7 +134,7 @@ export default function Join() {
                 className="input input-bordered border-neutral w-full"
               />
               {actionData?.errors?.password && (
-                <div className="pt-1 text-error" id="password-error">
+                <div className="text-error pt-1" id="password-error">
                   {actionData.errors.password}
                 </div>
               )}
@@ -145,8 +145,8 @@ export default function Join() {
           <button type="submit" className="btn btn-primary w-full">
             Create Account
           </button>
-          <div className="min-h-6 flex items-center justify-right">
-            <div className="grow text-right text-sm text-neutral">
+          <div className="min-h-6 justify-right flex items-center">
+            <div className="text-neutral grow text-right text-sm">
               Already have an account?{" "}
               <Link
                 className="link link-primary"
