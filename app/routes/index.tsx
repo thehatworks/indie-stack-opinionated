@@ -1,10 +1,9 @@
 import { Link } from "@remix-run/react";
+import _ from "lodash";
 
 import { UserAddIcon, LoginIcon } from "@heroicons/react/outline";
 
 import { useOptionalUser } from "~/auth/session.component";
-
-const backgroundImage = `url("https://user-images.githubusercontent.com/1500684/157774694-99820c51-8165-4908-a031-34fc371ac0d6.jpg")`;
 
 export default function Index() {
   const user = useOptionalUser();
@@ -13,42 +12,53 @@ export default function Index() {
       <div className="relative sm:pb-16 sm:pt-8">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
-            <div
-              className="hero lg:pb-18 px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pt-32"
-              style={{ backgroundImage }}
-            >
-              <div className="absolute inset-0 bg-[color:rgba(253,204,27,0.5)] mix-blend-multiply" />
-              <div className="hero-content text-center">
-                <div className="max-w-md">
-                  <h1 className="text-secondary text-6xl font-extrabold tracking-tight drop-shadow-md sm:text-8xl lg:text-9xl">
-                    Indie Stack
-                  </h1>
-                  <p className="py-6">
-                    Check the README.md file for instructions on how to get this
-                    project deployed.
-                  </p>
-                  {user ? (
-                    <Link
-                      to="/notes"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
-                    >
-                      View Notes for {user.email}
-                    </Link>
-                  ) : (
-                    <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
-                      <Link to="/join" className="btn justify-center">
-                        <UserAddIcon className="mr-2 w-6" />
-                        Sign up
-                      </Link>
-                      <Link
-                        to="/login"
-                        className="btn btn-primary justify-center"
-                      >
-                        <LoginIcon className="mr-2 w-6" />
-                        Log In
-                      </Link>
-                    </div>
+            <div className="lg:pb-18 px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pt-32">
+              <div className="absolute inset-0 tritravelers">
+                <div className="container">
+                  {_.map(_.range(200), (i) =>
+                    <div key={`${i}`} className="tri"></div>
                   )}
+                </div>
+              </div>
+              <div className="hero">
+                <div className="hero-content text-center">
+                  <div>
+                    <h1 className="text-secondary text-xl font-extrabold tracking-tight drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl whitespace-nowrap">
+                      indie-stack-opinionated
+                    </h1>
+                    <p className="mt-12 sm:mt-16">
+                      <a className="link link-primary" href="https://github.com/thehatworks/remix-stack">
+                        Maintained by @thehatworks
+                      </a>
+                      &nbsp;as a custom Remix Stack with our common tools. Forked originally from @remix-run/indie-stack. Approaching Production Ready in the limit ≐.
+                    </p>
+                    <p className="mt-4">
+                      Check the README.md file for instructions on how to get this
+                      project deployed.
+                    </p>
+                    {user ? (
+                      <Link
+                        to="/notes"
+                        className="btn btn-primary font-medium"
+                      >
+                        View Notes for {user.email}
+                      </Link>
+                    ) : (
+                      <div className="mt-6 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
+                        <Link to="/join" className="btn justify-center">
+                          <UserAddIcon className="mr-2 w-6" />
+                          Sign up
+                        </Link>
+                        <Link
+                          to="/login"
+                          className="btn btn-primary justify-center"
+                        >
+                          <LoginIcon className="mr-2 w-6" />
+                          Log In
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
