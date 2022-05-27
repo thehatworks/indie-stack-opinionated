@@ -1,25 +1,26 @@
-name: 🚀 Deploy
+name: 🤸 Integrate & Deploy
 on:
   push:
     branches:
-      - deploy-testing
+      - main
+      - dev
   pull_request: {}
 permissions:
   actions: write
   contents: read
 
 jobs:
-  lint:
-    name: ⬣ ESLint
+  static-analysis:
+    name: 🔬 Lint & Typecheck & Format
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
 
-      - name: ⬇️ Checkout repo
+      - name: 🛒 Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⎔ Setup node
+      - name: 🛠 Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -29,20 +30,37 @@ jobs:
         with:
           useLockFile: false
 
-      - name: 🔬 Lint
+      - name: 📜 Lint
         run: npm run lint
 
-  typecheck:
-    name: ʦ TypeScript
+      - name: ʦ Type check
+        run: npm run typecheck
+
+      - name: 💄 Format
+        run: npm run format
+
+      - name: 📈 Check if format step made changes
+        id: changes
+        uses: UnicornGlobal/has-changes-action@v1.0.11
+
+      - name: 💩 Fail if repo is dirty
+        if: steps.changes.outputs.changed == 1
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('format your code before checkin!')
+
+  unit-and-e2e-test:
+    name: 🧪 Run Vitest unit & Cypress e2e tests
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
 
-      - name: ⬇️ Checkout repo
+      - name: 📥 Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⎔ Setup node
+      - name: 🛒 Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -52,59 +70,16 @@ jobs:
         with:
           useLockFile: false
 
-      - name: 🔎 Type check
-        run: npm run typecheck --if-present
-
-  vitest:
-    name: ⚡ Vitest
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
-
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
-
-      - name: ⚡ Run vitest
+      - name: ⚡ Run Vitest
         run: npm run test -- --coverage
-
-  cypress:
-    name: ⚫️ Cypress
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
 
       - name: 🏄 Copy test env vars
         run: cp .env.example .env
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
-
-      - name: 🛠 Setup Database
+      - name: 📦 Setup Database
         run: npx prisma migrate reset --force
 
-      - name: ⚙️ Build
+      - name: 💿 Remix Build
         run: npm run build
 
       - name: 🌳 Cypress run
@@ -115,33 +90,34 @@ jobs:
         env:
           PORT: "8811"
 
-  build:
-    name: 🐳 Build
-    # only build/deploy on pushes to deploy-testing
-    if: ${{ (github.ref == 'refs/heads/deploy-testing') && github.event_name == 'push' }}
+  build-image:
+    name: 🐳 Build Container
+    # only build on pushes to main
+    if: ${{ (github.ref == 'refs/heads/main') && github.event_name == 'push' }}
     runs-on: ubuntu-latest
+    needs: [static-analysis, unit-and-e2e-test]
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
 
-      - name: ⬇️ Checkout repo
+      - name: 🛒 Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⎔ Setup node
+      - name: 🛠 Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: 📥 Generate a package-lock.json
+      - name: 🔒 Generate a package-lock.json
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
 
-      - name: 🐳 Set up Docker Buildx
+      - name: 🏠 Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
       # Setup cache
-      - name: ⚡️ Cache Docker layers
+      - name: 💾 Cache Docker layers
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
@@ -178,20 +154,21 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   deploy:
-    name: 🚀 Deploy
+    name: 🚀 Deploy to Fly.io
     runs-on: ubuntu-latest
-    needs: [lint, typecheck, vitest, cypress, build]
-    # only build/deploy main branch on pushes
-    if: ${{ (github.ref == 'refs/heads/deploy-testing') && github.event_name == 'push' }}
+    needs: [build-image]
+    # only deploy on pushes to main
+    if: ${{ (github.ref == 'refs/heads/main') && github.event_name == 'push' }}
 
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
 
-      - name: ⬇️ Get fly.toml
+      # TODO: this is only here to get fly.toml... do we need it?
+      - name: 🛒 Checkout Repo
         uses: actions/checkout@v3
 
-      - name: 🚀 Deploy To Stack-Informational Production Site
+      - name: 🎉 Deploy
         uses: superfly/flyctl-actions@1.3
         with:
           args: "deploy --app indie-stack-opinionated-template --image registry.fly.io/indie-stack-opinionated-template:${{ github.ref_name }}-${{ github.sha }}"
