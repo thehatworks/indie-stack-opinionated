@@ -2,9 +2,9 @@ name: 🤸 Integrate & Deploy
 on:
   push:
     branches:
-      - main
-      - dev
-  pull_request: {}
+      - matomo-tracking
+  #    - main
+  # pull_request: {}
 permissions:
   actions: write
   contents: read
