@@ -4,10 +4,22 @@ Fork of the remix-run/indie-stack with customizations we use in most projects
 
 Learn more about [Remix Stacks](https://remix.run/stacks).
 
-Get started quickly with:
+The biggest opinion here is that scaffolding just removes valuable git history that you want on project files!
+
+Don't use this with create-remix, it might not work properly. instead, simply fork or clone the repository, and follow the following steps manually:
+
+- Change app name in `package.json`, `package-lock.json`, `fly.toml`, and `README.md`
+- Delete this first section of README.md
+
+(later, remove these steps, and recreate remix.init script in bin as an explicit help with scaffolding)
+
+## I just cloned, what do
 
 ```shell
-npx create-remix@latest --template thehatworks/indie-stack-opinionated
+npm install
+cp .env.example .env
+npm run setup
+npm run dev
 ```
 
 ## What's changed in our opinionated fork
