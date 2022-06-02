@@ -37,12 +37,24 @@ tasks:
         fi
       fi
 
+  - name: Update npm version
+    command: npm install -g npm@latest
+
   - init: npm install
     command: npm run setup && npm run dev
 
 vscode:
   extensions:
-    - ms-azuretools.vscode-docker
-    - esbenp.prettier-vscode
-    - dbaeumer.vscode-eslint
+    - usernamehw.errorlens
+    - mhutchie.git-graph
+    - christian-kohler.npm-intellisense
+    - christian-kohler.path-intellisense
     - bradlc.vscode-tailwindcss
+    - csstools.postcss
+    - Prisma.prisma
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
+    - meganrogge.template-string-converter
+    - mikestead.dotenv
+    - ms-azuretools.vscode-docker
+    - bungcip.better-toml

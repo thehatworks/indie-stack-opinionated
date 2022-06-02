@@ -55,7 +55,7 @@ npx create-remix@latest --template thehatworks/indie-stack-opinionated
 
 Click this button to create a [Gitpod](https://gitpod.io) workspace with the project set up and Fly pre-installed
 
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/remix-run/indie-stack/tree/main)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/thehatworks/indie-stack-opinionated/tree/main)
 
 ## Development
 
