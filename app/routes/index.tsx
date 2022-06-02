@@ -20,12 +20,10 @@ export default function Index() {
                   ))}
                 </div>
               </div>
-              <div className="hero">
+              <div className="hero index-content">
                 <div className="hero-content text-center">
                   <div>
-                    <h1 className="text-secondary whitespace-nowrap text-xl font-extrabold tracking-tight drop-shadow-md sm:text-4xl md:text-5xl lg:text-6xl">
-                      indie-stack-opinionated
-                    </h1>
+                    <h1>indie-stack-opinionated</h1>
                     <p className="mt-12 sm:mt-16">
                       <a
                         className="link link-primary"
@@ -47,15 +45,12 @@ export default function Index() {
                       </Link>
                     ) : (
                       <div className="mt-6 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-                        <Link to="/join" className="btn justify-center">
-                          <UserAddIcon className="mr-2 w-6" />
+                        <Link to="/join" className="btn btn-icon">
+                          <UserAddIcon />
                           Sign up
                         </Link>
-                        <Link
-                          to="/login"
-                          className="btn btn-primary justify-center"
-                        >
-                          <LoginIcon className="mr-2 w-6" />
+                        <Link to="/login" className="btn btn-primary btn-icon">
+                          <LoginIcon />
                           Log In
                         </Link>
                       </div>

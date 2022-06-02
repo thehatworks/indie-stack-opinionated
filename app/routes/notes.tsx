@@ -32,8 +32,8 @@ export default function NotesPage() {
         <div className="navbar-center mx-2 px-2">{user.email}</div>
         <div className="navbar-end mx-2 px-2">
           <Form action="/logout" method="post">
-            <button type="submit" className="btn btn-neutral">
-              <LogoutIcon className="mr-2 w-6" />
+            <button type="submit" className="btn btn-neutral btn-icon">
+              <LogoutIcon />
               Logout
             </button>
           </Form>
