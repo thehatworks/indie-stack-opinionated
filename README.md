@@ -10,6 +10,25 @@ Get started quickly with:
 npx create-remix@latest --template thehatworks/indie-stack-opinionated
 ```
 
+## Highly suggested development environment for these tools
+
+- [VSCodium](https://vscodium.com/) likely available for a package manager for your system (apt, choco, brew)
+  - [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) nice inline error support for all language extensions below
+  - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph) nice git history visuals
+  - [GitLess](https://marketplace.visualstudio.com/items?itemName=maattdd.gitless) pre-premium fork of GitLens (inline git blames & more)
+  - Language/Tool-Specific Extensions
+    - [npm intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense) auto-complete node imports from npm packages
+    - [Path intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense) auto-complete node imports from your source files
+    - [TailwindCSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) auto-completion & friends for Tailind (& DaisyUI) classes
+    - [Prisma Plugin](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma) support prisma files & tooling
+    - [ESLint Plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) to support eslint with `config/eslint.config.js`
+    - [Prettier Plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) auto-format your code on save
+    - [Template String Converter](https://marketplace.visualstudio.com/items?itemName=meganrogge.template-string-converter) super-nice utlity that fixes when you forget to use backtick
+    - [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) to support `.env` & `.env.example`
+    - [YAML Language Support](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) for editing `.github/workflows/deploy.yml`
+    - [MS Docker Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) if you need to make changes to `Dockerfile`
+    - [Better TOML](https://marketplace.visualstudio.com/items?itemName=bungcip.better-toml) to support `fly.toml`
+
 ## What's changed in our opinionated fork
 
 - Flexible Authentication with [remix-auth](https://github.com/sergiodxa/remix-auth)
