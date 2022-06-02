@@ -20,6 +20,7 @@ npx create-remix@latest --template thehatworks/indie-stack-opinionated
     - [npm intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense) auto-complete node imports from npm packages
     - [Path intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense) auto-complete node imports from your source files
     - [TailwindCSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) auto-completion & friends for Tailind (& DaisyUI) classes
+    - [PostCSS Language Support](https://marketplace.visualstudio.com/items?itemName=csstools.postcss) to support `style/*.scss`
     - [Prisma Plugin](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma) support prisma files & tooling
     - [ESLint Plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) to support eslint with `config/eslint.config.js`
     - [Prettier Plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) auto-format your code on save
