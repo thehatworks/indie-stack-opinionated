@@ -42,7 +42,18 @@ tasks:
 
 vscode:
   extensions:
-    - ms-azuretools.vscode-docker
-    - esbenp.prettier-vscode
-    - dbaeumer.vscode-eslint
+    - usernamehw.errorlens
+    - mhutchie.git-graph
+    - maattdd.gitless
+    - christian-kohler.npm-intellisense
+    - christian-kohler.path-intellisense
     - bradlc.vscode-tailwindcss
+    - csstools.postcss
+    - Prisma.prisma
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
+    - meganrogge.template-string-converter
+    - mikestead.dotenv
+    - redhat.vscode-yaml
+    - ms-azuretools.vscode-docker
+    - bungcip.better-toml
