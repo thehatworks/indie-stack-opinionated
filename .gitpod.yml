@@ -37,6 +37,9 @@ tasks:
         fi
       fi
 
+  - name: Update npm version
+    command: npm install -g npm@latest
+
   - init: npm install
     command: npm run setup && npm run dev
 
@@ -44,7 +47,6 @@ vscode:
   extensions:
     - usernamehw.errorlens
     - mhutchie.git-graph
-    - maattdd.gitless
     - christian-kohler.npm-intellisense
     - christian-kohler.path-intellisense
     - bradlc.vscode-tailwindcss
@@ -54,6 +56,5 @@ vscode:
     - esbenp.prettier-vscode
     - meganrogge.template-string-converter
     - mikestead.dotenv
-    - redhat.vscode-yaml
     - ms-azuretools.vscode-docker
     - bungcip.better-toml
