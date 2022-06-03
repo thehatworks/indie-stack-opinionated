@@ -25,8 +25,8 @@ describe("unauthorized smoke tests", () => {
     cy.findByLabelText(/email/i).type(faker.internet.email());
     cy.findByLabelText(/password/i).type(faker.internet.password(7));
     cy.findByRole("button", { name: /create account/i }).click();
-    cy.get("[id$=password-error]").should("have.class", "text-error");
-    cy.get("[id$=password-error]").should("include.text", "short", {
+    cy.get("[name=password]").should("have.attr", "aria-invalid");
+    cy.get("[id$=errors-for-password]").should("include.text", "at least 8", {
       matchCase: false,
     });
     cy.url().should("include", "/join");
