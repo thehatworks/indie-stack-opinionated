@@ -53,11 +53,17 @@ export default function Index() {
                       </Link>
                     ) : (
                       <div className="mt-6 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-                        <Link to="/join" className="btn btn-icon">
+                        <Link
+                          to="/join?redirectTo=/notes"
+                          className="btn btn-icon"
+                        >
                           <UserPlusIcon />
                           Sign up
                         </Link>
-                        <Link to="/login" className="btn btn-primary btn-icon">
+                        <Link
+                          to="/login?redirectTo=/notes"
+                          className="btn btn-primary btn-icon"
+                        >
                           <ArrowLeftOnRectangleIcon />
                           Log In
                         </Link>

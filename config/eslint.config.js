@@ -19,4 +19,5 @@ module.exports = {
       version: 28,
     },
   },
+  ignorePatterns: ["build/**/*", "public/build/**/*", "app/zod/**/*"],
 };

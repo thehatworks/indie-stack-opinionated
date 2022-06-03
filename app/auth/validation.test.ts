@@ -1,26 +1,43 @@
-import { validateEmail, validatePassword } from "~/auth/validation";
+import { AuthInputSchema } from "./form.schema";
 import { faker } from "@faker-js/faker";
 
-test("validate_email fails with messages for non-emails", () => {
-  expect(validateEmail(null)).toHaveLength(1);
-  expect(validateEmail("")).toHaveLength(1);
-  expect(validateEmail("not-an-email")).toHaveLength(1);
-  expect(validateEmail("n@")).toHaveLength(1);
+test("Email Validation with messages for non-emails", () => {
+  const emails_to_fail = [null, "", "not-an-email", "n@"];
+  emails_to_fail.forEach((email) => {
+    expect(
+      AuthInputSchema.pick({ email: true }).safeParse({ email })
+    ).toHaveProperty("success", false);
+  });
 });
 
-test("validate_email succeeds for emails", () => {
-  console.log("faker.internet.email()", faker.internet.email());
-  expect(validateEmail(faker.internet.email())).toHaveLength(0);
+test("Email Validation succeeds for emails", () => {
+  expect(
+    AuthInputSchema.pick({ email: true }).safeParse({
+      email: faker.internet.email(),
+    })
+  ).toHaveProperty("success", true);
 });
 
-test("validate_password fails with messages for insecure passwords", () => {
-  expect(validatePassword("short")).toHaveLength(1);
-  expect(validatePassword("")).toHaveLength(1);
+test("Password Validation fails with messages for insecure passwords", () => {
+  expect(
+    AuthInputSchema.pick({ password: true }).safeParse({ password: "short" })
+  ).toHaveProperty("success", false);
+  expect(
+    AuthInputSchema.pick({ password: true }).safeParse({ password: "" })
+  ).toHaveProperty("success", false);
 });
 
-test("validate_password succeeds for a decent password", () => {
-  expect(validatePassword("nospec1al")).toHaveLength(0);
-  expect(validatePassword("no*number")).toHaveLength(0);
-  expect(validatePassword("NOLOWER*1")).toHaveLength(0);
-  expect(validatePassword("Secure1*")).toHaveLength(0);
+// TODO: Write more stringent conditions for passwords (i.e. number/special char etc.)
+test("Password Validation succeeds for a decent password", () => {
+  const passwords_to_succeed = [
+    "nospecial",
+    "no*number",
+    "NOLOWER*1",
+    "Secure1*",
+  ];
+  passwords_to_succeed.forEach((password) => {
+    expect(
+      AuthInputSchema.pick({ password: true }).safeParse({ password })
+    ).toHaveProperty("success", true);
+  });
 });

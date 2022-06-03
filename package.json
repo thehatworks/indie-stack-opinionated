@@ -24,7 +24,9 @@
     "docker:run": "docker run --rm -p 8080:8080 --env SESSION_SECRET=testing --name indie-stack-opinionated -it indie-stack-opinionated:latest run-local",
     "test": "vitest --config config/vitest.config.ts",
     "test:docker": "run-s docker:*",
-    "test:e2e:dev": "start-server-and-test dev http://localhost:3000 \"npx cypress open\"",
+    "test:e2e:dev": "npm run build:remix && run-p test:e2e:dev:*",
+    "test:e2e:dev:build": "npm run dev:remix",
+    "test:e2e:dev:cypress": "start-server-and-test dev http://localhost:3000 \"npx cypress open\"",
     "pretest:e2e:run": "npm run build",
     "test:e2e:run": "cross-env PORT=8811 start-server-and-test start:mocks http://localhost:8811 \"npx cypress run\"",
     "typecheck": "tsc && tsc -b bin",
@@ -52,16 +54,20 @@
     "@remix-run/serve": "*",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
+    "domain-functions": "^1.7.1",
     "express": "^4.18.2",
     "isbot": "^3.6.10",
     "lodash": "^4.17.21",
-    "prisma": "^4.15.0",
     "morgan": "^1.10.0",
+    "prisma": "^4.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.0",
     "remix-auth": "^3.4.0",
     "remix-auth-form": "^1.3.0",
-    "tiny-invariant": "^1.3.1"
+    "remix-forms": "^1.6.3",
+    "tiny-invariant": "^1.3.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@csstools/postcss-sass": "^5.0.1",
@@ -113,7 +119,8 @@
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
     "vite-tsconfig-paths": "^3.6.0",
-    "vitest": "^0.32.0"
+    "vitest": "^0.32.0",
+    "zod-prisma": "^0.5.4"
   },
   "engines": {
     "node": ">=14"

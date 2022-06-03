@@ -5,6 +5,38 @@
 @tailwind components;
 @tailwind utilities;
 
+.base-form {
+  @apply space-y-6;
+
+  div {
+    @apply flex flex-col;
+
+    input {
+      @apply input input-bordered input-primary;
+
+      &[aria-invalid="true"] {
+        @apply border-error;
+      }
+
+      &[type="checkbox"] {
+        @apply checkbox checkbox-primary checkbox-md;
+      }
+    }
+
+    label {
+      @apply mb-1 text-sm font-medium;
+    }
+  }
+
+  button {
+    @apply btn btn-primary w-full;
+  }
+
+  .form-error {
+    @apply text-error pt-1;
+  }
+}
+
 .index-content {
   @apply text-secondary-content;
 
@@ -19,4 +51,8 @@
   svg {
     @apply w-icon;
   }
+}
+
+.btn {
+  @apply hover:scale-110;
 }
