@@ -4,8 +4,6 @@ import { json } from "@remix-run/node";
 import { Link, useSearchParams } from "@remix-run/react";
 
 import { Form, performMutation } from "remix-forms";
-import type { FormProps } from "remix-forms";
-
 import { createUserSession } from "~/auth/session.server";
 
 import { userCreationMutation } from "~/auth/form.server";
@@ -14,7 +12,7 @@ import { AuthInputSchema } from "~/auth/form.schema";
 export { loader } from "~/auth/form.server";
 
 export const meta: MetaFunction = () => ({
-  title: "Login",
+  title: "Sign Up",
 });
 
 export const action: ActionFunction = async ({ request }) => {
@@ -27,7 +25,6 @@ export const action: ActionFunction = async ({ request }) => {
     return json(result, 400);
   }
   const { redirectTo, id: userId } = result.data;
-  console.log(result.data);
   return createUserSession({
     request,
     userId,
@@ -36,22 +33,23 @@ export const action: ActionFunction = async ({ request }) => {
   });
 };
 
-const AuthInputForm = (props: FormProps<typeof AuthInputSchema>) => {
-  return <Form<typeof AuthInputSchema> {...props} />;
+const FormError = (props: JSX.IntrinsicElements["div"]) => {
+  return <div className="form-error" {...props} />;
 };
 
-export default function JoinPage() {
+const JoinPage = () => {
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") ?? "/";
 
   return (
     <div className="flex min-h-full flex-col justify-center">
       <div className="mx-auto w-full max-w-md px-8">
-        <AuthInputForm
+        <Form<typeof AuthInputSchema>
           className="base-form"
           schema={AuthInputSchema}
           hiddenFields={["redirectTo"]}
           values={{ redirectTo }}
+          errorComponent={FormError}
         >
           {({ Field, Errors, Button, register }) => (
             <>
@@ -64,7 +62,7 @@ export default function JoinPage() {
                       autoComplete="email"
                       {...register("email")}
                     />
-                    <Errors className="form-error" />
+                    <Errors />
                   </>
                 )}
               </Field>
@@ -77,7 +75,7 @@ export default function JoinPage() {
                       autoComplete="new-password"
                       {...register("password")}
                     />
-                    <Errors className="form-error" />
+                    <Errors />
                   </>
                 )}
               </Field>
@@ -86,7 +84,7 @@ export default function JoinPage() {
               <Button>Create Account</Button>
             </>
           )}
-        </AuthInputForm>
+        </Form>
         <div className="justify-right items-right mt-6 flex h-6">
           <div className="text-neutral grow text-right text-sm">
             Already have an account?
@@ -104,4 +102,6 @@ export default function JoinPage() {
       </div>
     </div>
   );
-}
+};
+
+export default JoinPage;

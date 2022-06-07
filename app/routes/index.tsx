@@ -40,7 +40,10 @@ export default function Index() {
                       this project deployed.
                     </p>
                     {user ? (
-                      <Link to="/notes" className="btn btn-primary font-medium">
+                      <Link
+                        to="/notes"
+                        className="btn btn-primary mt-6 font-medium"
+                      >
                         View Notes for {user.email}
                       </Link>
                     ) : (

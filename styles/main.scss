@@ -23,8 +23,12 @@
       }
     }
 
+    textarea {
+      @apply textarea textarea-bordered;
+    }
+
     label {
-      @apply mb-1 text-sm font-medium;
+      @apply label label-text mb-1;
     }
   }
 

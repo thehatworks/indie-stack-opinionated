@@ -7,14 +7,19 @@ import { requireUserId } from "~/auth/session.server";
 import { NoteModel } from "~/../prisma/zod";
 import { makeDomainFunction } from "remix-domains";
 import { Form, performMutation } from "remix-forms";
+import { AuthorizedMutationEnvironmentSchema } from "~/auth/form.schema";
 
 const NoteInputSchema = NoteModel.pick({
   title: true,
   body: true,
 });
 
-const createNoteMutation = makeDomainFunction(NoteInputSchema)(
-  async ({ title, body }) => await createNote({ title, body, userId })
+const createNoteMutation = makeDomainFunction(
+  NoteInputSchema,
+  AuthorizedMutationEnvironmentSchema
+)(
+  async ({ title, body }, { userId }) =>
+    await createNote({ title, body, userId })
 );
 
 export const action: ActionFunction = async ({ request }) => {
@@ -24,6 +29,7 @@ export const action: ActionFunction = async ({ request }) => {
     request,
     schema: NoteInputSchema,
     mutation: createNoteMutation,
+    environment: { userId },
   });
   if (!result.success) {
     return json(result, 400);
@@ -33,11 +39,17 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(`/notes/${id}`);
 };
 
+const FormError = (props: JSX.IntrinsicElements["div"]) => {
+  return <div className="form-error" {...props} />;
+};
+
 export default function NewNotePage() {
   return (
     <Form<typeof NoteInputSchema>
       schema={NoteInputSchema}
       className="base-form"
+      multiline={["body"]}
+      errorComponent={FormError}
     >
       {({ Field, Errors, Button, register }) => (
         <>
@@ -46,7 +58,7 @@ export default function NewNotePage() {
               <>
                 <Label />
                 <SmartInput autoFocus={true} />
-                <Errors className="form-error" />
+                <Errors />
               </>
             )}
           </Field>
@@ -54,52 +66,15 @@ export default function NewNotePage() {
             {({ Label, Errors }) => (
               <>
                 <Label />
-                <textarea {...register("body")} />
-                <Errors className="form-error" />
+                <textarea rows={8} {...register("body")} />
+                <Errors />
               </>
             )}
           </Field>
-          <Errors className="form-error" />
+          <Errors />
           <Button>Save</Button>
         </>
       )}
     </Form>
   );
 }
-
-/* <div className="form-control">
-<label className="label flex w-full flex-col gap-1">
-  <span className="label-text">Title: </span>
-  <input
-    ref={titleRef}
-    name="title"
-    className="input input-bordered flex-1 text-lg leading-loose"
-    aria-invalid={actionData?.errors?.title ? true : undefined}
-    aria-errormessage={
-      actionData?.errors?.title ? "title-error" : undefined
-    }
-  />
-</label>
-
-</div>
-
-<div className="form-control">
-<label className="label flex w-full flex-col gap-1">
-  <span className="label-text">Body: </span>
-  <textarea
-    ref={bodyRef}
-    name="body"
-    rows={8}
-    className="textarea textarea-bordered border-neutral w-full flex-1"
-    aria-invalid={actionData?.errors?.body ? true : undefined}
-    aria-errormessage={
-      actionData?.errors?.body ? "body-error" : undefined
-    }
-  />
-</label>
-
-</div>
-
-<div className="text-right">
-
-</div> */

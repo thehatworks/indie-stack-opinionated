@@ -4,7 +4,6 @@ import { json } from "@remix-run/node";
 import { Link, useSearchParams } from "@remix-run/react";
 
 import { Form, performMutation } from "remix-forms";
-import type { FormProps } from "remix-forms";
 
 import { createUserSession } from "~/auth/session.server";
 
@@ -35,22 +34,23 @@ export const action: ActionFunction = async ({ request }) => {
   });
 };
 
-const AuthInputForm = (props: FormProps<typeof AuthInputSchema>) => {
-  return <Form<typeof AuthInputSchema> {...props} />;
+const FormError = (props: JSX.IntrinsicElements["div"]) => {
+  return <div className="form-error" {...props} />;
 };
 
-export default function LoginPage() {
+const LoginPage = () => {
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") ?? "/";
 
   return (
     <div className="flex min-h-full flex-col justify-center">
       <div className="mx-auto w-full max-w-md px-8">
-        <AuthInputForm
+        <Form<typeof AuthInputSchema>
           className="base-form"
           schema={AuthInputSchema}
           hiddenFields={["redirectTo"]}
           values={{ redirectTo }}
+          errorComponent={FormError}
         >
           {({ Field, Errors, Button, register }) => (
             <>
@@ -63,7 +63,7 @@ export default function LoginPage() {
                       autoComplete="email"
                       {...register("email")}
                     />
-                    <Errors className="form-error" />
+                    <Errors />
                   </>
                 )}
               </Field>
@@ -76,7 +76,7 @@ export default function LoginPage() {
                       autoComplete="new-password"
                       {...register("password")}
                     />
-                    <Errors className="form-error" />
+                    <Errors />
                   </>
                 )}
               </Field>
@@ -107,8 +107,10 @@ export default function LoginPage() {
               </div>
             </>
           )}
-        </AuthInputForm>
+        </Form>
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;

@@ -9,3 +9,7 @@ export const AuthInputSchema = UserModel.pick({ email: true }).merge(
     remember: z.boolean().optional(),
   })
 );
+
+export const AuthorizedMutationEnvironmentSchema = z.object({
+  userId: UserModel.shape.id,
+});
