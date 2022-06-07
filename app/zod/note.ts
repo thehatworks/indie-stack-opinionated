@@ -10,11 +10,11 @@ export const NoteModel = z.object({
   /**
    * The note's title
    */
-  title: z.string(),
+  title: z.string().min(1, "Title is required"),
   /**
    * The note's body text
    */
-  body: z.string(),
+  body: z.string().min(1, "Body is required"),
   createdAt: z.date(),
   updatedAt: z.date(),
   /**

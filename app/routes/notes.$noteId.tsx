@@ -8,13 +8,8 @@ import {
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import type { Note } from "~/models/note.server";
 import { deleteNote, getNote } from "~/models/note.server";
 import { requireUserId } from "~/auth/session.server";
-
-type LoaderData = {
-  note: Pick<Note, "id" | "title" | "body">;
-};
 
 export const loader = async ({ params, request }: LoaderArgs) => {
   const userId = await requireUserId(request);
@@ -24,7 +19,7 @@ export const loader = async ({ params, request }: LoaderArgs) => {
   if (note == null) {
     throw new Response("Not Found", { status: 404 });
   }
-  return json<LoaderData>({ note });
+  return json({ note });
 };
 
 export const action = async ({ params, request }: ActionArgs) => {

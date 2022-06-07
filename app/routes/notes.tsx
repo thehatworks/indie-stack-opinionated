@@ -8,14 +8,10 @@ import { useUser } from "~/auth/session.component";
 
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 
-type LoaderData = {
-  noteListItems: Awaited<ReturnType<typeof getNoteListItems>>;
-};
-
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await requireUserId(request);
   const noteListItems = await getNoteListItems({ userId });
-  return json<LoaderData>({ noteListItems });
+  return json({ noteListItems });
 };
 
 export default function NotesPage() {

@@ -3,34 +3,34 @@ import { prisma } from "~/db.server";
 
 export type { Note };
 
-export function getNote({
+export async function getNote({
   id,
   userId,
 }: Pick<Note, "id"> & {
   userId: User["id"];
 }) {
-  return prisma.note.findFirst({
+  return await prisma.note.findFirst({
     select: { id: true, body: true, title: true },
     where: { id, userId },
   });
 }
 
-export function getNoteListItems({ userId }: { userId: User["id"] }) {
-  return prisma.note.findMany({
+export async function getNoteListItems({ userId }: { userId: User["id"] }) {
+  return await prisma.note.findMany({
     where: { userId },
     select: { id: true, title: true },
     orderBy: { updatedAt: "desc" },
   });
 }
 
-export function createNote({
+export async function createNote({
   body,
   title,
   userId,
 }: Pick<Note, "body" | "title"> & {
   userId: User["id"];
 }) {
-  return prisma.note.create({
+  return await prisma.note.create({
     data: {
       title,
       body,
@@ -43,11 +43,11 @@ export function createNote({
   });
 }
 
-export function deleteNote({
+export async function deleteNote({
   id,
   userId,
 }: Pick<Note, "id"> & { userId: User["id"] }) {
-  return prisma.note.deleteMany({
+  return await prisma.note.deleteMany({
     where: { id, userId },
   });
 }
