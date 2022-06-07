@@ -45,6 +45,8 @@ npm run dev
 ## What's changed in our opinionated fork
 
 - Flexible Authentication with [remix-auth](https://github.com/sergiodxa/remix-auth)
+- Automagic Form & 'Action' Generation with [remix-forms](https://remix-forms.seasoned.cc/) and [remix-domains](https://github.com/SeasonedSoftware/remix-domains)
+- Validation Schema Generation with [zod](https://zod.dev/) & [zod-prisma](https://github.com/CarterGrimmeisen/zod-prisma)
 - Styling with [PostCSS](https://postcss.org/) & [Tailwind](https://tailwindcss.com/)
 - Opinionated Component Styling with [daisyUI](https://daisyui.com)
 - Icons by [Heroicons](https://heroicons.com/)

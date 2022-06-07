@@ -109,6 +109,11 @@ export default function Index() {
                 href: "https://daisyui.com",
               },
               {
+                src: "https://zod.dev/logo.svg",
+                alt: "Zod",
+                href: "https://zod.dev",
+              },
+              {
                 src: "https://user-images.githubusercontent.com/1500684/157764454-48ac8c71-a2a9-4b5e-b19c-edef8b8953d6.svg",
                 alt: "Cypress",
                 href: "https://www.cypress.io",
@@ -143,6 +148,11 @@ export default function Index() {
                 alt: "TypeScript",
                 href: "https://typescriptlang.org",
               },
+              {
+                src: "https://vscodium.com/img/code.png",
+                alt: "VSCodium",
+                href: "https://vscodium.com",
+              },
             ].map((img) => (
               <a
                 key={img.href}
@@ -152,6 +162,38 @@ export default function Index() {
                 <img alt={img.alt} src={img.src} />
               </a>
             ))}
+          </div>
+          <div className="mt-6 flex flex-col flex-wrap items-center">
+            <h3 className="max-w-sm justify-center text-xl">
+              And the following clutch libraries & projects that don't have
+              logos
+            </h3>
+            <ul>
+              {[
+                {
+                  href: "https://github.com/sergiodxa/remix-auth",
+                  label: "remix-auth",
+                  author: "@sergiodxa",
+                },
+                {
+                  href: "https://remix-forms.seasoned.cc",
+                  label: "remix-forms + remix-domains",
+                  author: "Seasoned.cc",
+                },
+                {
+                  href: "https://github.com/CarterGrimmeisen/zod-prisma",
+                  label: "zod-prisma",
+                  author: "Carter Grimmeisen",
+                },
+              ].map((link) => (
+                <li className="mt-8" key={link.label}>
+                  <a href={link.href} className="btn btn-primary">
+                    {link.label}
+                  </a>
+                  <span className="ml-1">({link.author})</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
