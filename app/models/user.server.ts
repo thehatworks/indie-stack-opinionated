@@ -24,6 +24,9 @@ export async function createUser(email: User["email"], password: string) {
           hash: hashedPassword,
         },
       },
+      userData: {
+        create: {},
+      },
     },
   });
 }

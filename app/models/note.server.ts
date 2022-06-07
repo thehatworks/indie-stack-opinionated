@@ -1,53 +1,77 @@
-import type { User, Note } from "@prisma/client";
+import type { User, UserData, Note } from "@prisma/client";
 
 import { prisma } from "~/db.server";
 
 export type { Note } from "@prisma/client";
 
-export function getNote({
+export const getNote = async ({
   id,
   userId,
-}: Pick<Note, "id"> & {
-  userId: User["id"];
-}) {
-  return prisma.note.findFirst({
-    where: { id, userId },
-  });
-}
-
-export function getNoteListItems({ userId }: { userId: User["id"] }) {
-  return prisma.note.findMany({
+}: Pick<Note, "id"> & Pick<UserData, "userId">) => {
+  const data = await prisma.userData.findUnique({
     where: { userId },
-    select: { id: true, title: true },
-    orderBy: { updatedAt: "desc" },
-  });
-}
-
-export function createNote({
-  body,
-  title,
-  userId,
-}: Pick<Note, "body" | "title"> & {
-  userId: User["id"];
-}) {
-  return prisma.note.create({
-    data: {
-      title,
-      body,
-      user: {
-        connect: {
-          id: userId,
+    select: {
+      notes: {
+        where: {
+          id,
         },
       },
     },
   });
-}
 
-export function deleteNote({
+  return data?.notes[0] ?? null;
+};
+
+export const getNoteListItems = async ({
+  userId,
+}: Pick<UserData, "userId">) => {
+  const data = await prisma.userData.findUnique({
+    where: { userId },
+    include: {
+      notes: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
+  });
+
+  return data?.notes ?? [];
+};
+
+export const createNote = async ({
+  body,
+  title,
+  userId,
+}: Pick<Note, "body" | "title"> & Pick<UserData, "userId">) => {
+  return await prisma.note.create({
+    data: {
+      title,
+      body,
+      data: {
+        connect: {
+          userId,
+        },
+      },
+    },
+  });
+};
+
+export const deleteNote = async ({
   id,
   userId,
-}: Pick<Note, "id"> & { userId: User["id"] }) {
-  return prisma.note.deleteMany({
-    where: { id, userId },
+}: Pick<Note, "id"> & Pick<UserData, "userId">) => {
+  await prisma.userData.update({
+    where: {
+      userId,
+    },
+    data: {
+      notes: {
+        delete: {
+          id,
+        },
+      },
+    },
   });
-}
+};
