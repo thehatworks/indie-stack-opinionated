@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompletePassword, RelatedPasswordModel, CompleteNote, RelatedNoteModel } from "./index"
+import { CompletePassword, RelatedPasswordModel, CompleteUserData, RelatedUserDataModel } from "./index"
 
 export const UserModel = z.object({
   /**
@@ -17,7 +17,7 @@ export const UserModel = z.object({
 
 export interface CompleteUser extends z.infer<typeof UserModel> {
   password?: CompletePassword | null
-  notes: CompleteNote[]
+  userData?: CompleteUserData | null
 }
 
 /**
@@ -31,7 +31,7 @@ export const RelatedUserModel: z.ZodSchema<CompleteUser> = z.lazy(() => UserMode
    */
   password: RelatedPasswordModel.nullish(),
   /**
-   * User's associated notes from model Note
+   * User's data as a foreign key
    */
-  notes: RelatedNoteModel.array(),
+  userData: RelatedUserDataModel.nullish(),
 }))

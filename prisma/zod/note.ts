@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteUser, RelatedUserModel } from "./index"
+import { CompleteUserData, RelatedUserDataModel } from "./index"
 
 export const NoteModel = z.object({
   /**
@@ -10,21 +10,21 @@ export const NoteModel = z.object({
   /**
    * The note's title
    */
-  title: z.string(),
+  title: z.string().min(1, "Title is required"),
   /**
    * The note's body text
    */
-  body: z.string(),
+  body: z.string().min(1, "Body is required"),
   createdAt: z.date(),
   updatedAt: z.date(),
   /**
-   * id of associated user entry (foreign key)
+   * id of associated UserData entry (foreign key)
    */
-  userId: z.string(),
+  dataId: z.string(),
 })
 
 export interface CompleteNote extends z.infer<typeof NoteModel> {
-  user: CompleteUser
+  data: CompleteUserData
 }
 
 /**
@@ -34,7 +34,7 @@ export interface CompleteNote extends z.infer<typeof NoteModel> {
  */
 export const RelatedNoteModel: z.ZodSchema<CompleteNote> = z.lazy(() => NoteModel.extend({
   /**
-   * Associated User entry
+   * Associated UserData entry
    */
-  user: RelatedUserModel,
+  data: RelatedUserDataModel,
 }))
