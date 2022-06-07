@@ -83,6 +83,7 @@ describe("authorized smoke tests", () => {
     ).should("have.value", loginForm.password);
 
     cy.findByRole("button", { name: /log in/i }).click();
+    cy.findByRole("link", { name: /notes/i }).click();
     cy.findByRole("button", { name: /logout/i }).click();
     cy.findByRole("link", { name: /log in/i });
   });

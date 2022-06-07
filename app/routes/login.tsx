@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "@remix-run/react";
 import { performMutation } from "remix-forms";
 
 import { Form } from "~/forms/form";
+import { FormError } from "~/forms/components";
 
 import { createUserSession } from "~/auth/session.server";
 import { userLoginMutation } from "~/auth/form.server";
@@ -44,6 +45,7 @@ export default function LoginPage() {
           schema={AuthInputSchema}
           hiddenFields={["redirectTo"]}
           values={{ redirectTo }}
+          errorComponent={FormError}
         >
           {({ Field, Errors, Button, register }) => (
             <>
@@ -56,7 +58,7 @@ export default function LoginPage() {
                       autoComplete="email"
                       {...register("email")}
                     />
-                    <Errors className="form-error" />
+                    <Errors />
                   </>
                 )}
               </Field>
@@ -69,7 +71,7 @@ export default function LoginPage() {
                       autoComplete="new-password"
                       {...register("password")}
                     />
-                    <Errors className="form-error" />
+                    <Errors />
                   </>
                 )}
               </Field>
