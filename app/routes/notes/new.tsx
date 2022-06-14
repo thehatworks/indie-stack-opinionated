@@ -4,7 +4,7 @@ import { json, redirect } from "@remix-run/node";
 import { createNote } from "~/models/note.server";
 import { requireUserId } from "~/auth/session.server";
 
-import { NoteModel } from "~/../prisma/zod";
+import { NoteModel } from "~/zod";
 import { makeDomainFunction } from "remix-domains";
 import { Form, performMutation } from "remix-forms";
 import { AuthorizedMutationEnvironmentSchema } from "~/auth/form.schema";

@@ -9,7 +9,7 @@ generator client {
 
 generator zod {
   provider = "zod-prisma"
-
+  output   = "../app/zod"
   // relationModel         = "default" // Do not export non-relational model.
   // useDecimalJs             = true // represent the prisma Decimal type using Decimal.js (as Prisma does)
 

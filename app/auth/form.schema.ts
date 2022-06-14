@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { UserModel } from "~/../prisma/zod";
+import { UserModel } from "~/zod";
 
 export const AuthInputSchema = UserModel.pick({ email: true }).merge(
   z.object({
