@@ -22,6 +22,7 @@
     "start:mocks": "binode --require ./mocks -- @remix-run/serve:remix-serve build",
     "docker:build": "docker build . -t indie-stack-opinionated:latest",
     "docker:run": "docker run -p 8080:8080 --env SESSION_SECRET=testing --name indie-stack-opinionated -it indie-stack-opinionated:latest",
+    "docker:purge": "docker rm indie-stack-opinionated && docker rmi indie-stack-opinionated:latest",
     "test": "vitest --config config/vitest.config.ts",
     "test:docker": "run-s docker:*",
     "test:e2e:dev": "start-server-and-test dev http://localhost:3000 \"npx cypress open\"",
