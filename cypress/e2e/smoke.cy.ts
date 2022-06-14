@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 describe("unauthorized smoke tests", () => {
   it("fly.io healthcheck should return something expected", () => {

@@ -59,6 +59,8 @@ COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
 COPY --from=build /myapp/build /myapp/build
 COPY --from=build /myapp/public /myapp/public
 COPY --from=build /myapp/bin/server.js /myapp/bin/server.js
-ADD . .
+COPY --from=build /myapp/package.json /myapp/package.json
+COPY --from=build /myapp/start.sh /myapp/start.sh
+COPY --from=build /myapp/prisma /myapp/prisma
 
-CMD ["npm", "start"]
+ENTRYPOINT [ "./start.sh" ]
