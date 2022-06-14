@@ -1,2 +1,4 @@
 build
-prisma/zod
+/app/zod
+config/tailwind.config.js
+cypress/plugins/index.js
