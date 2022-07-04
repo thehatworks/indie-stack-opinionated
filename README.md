@@ -71,6 +71,17 @@ Click this button to create a [Gitpod](https://gitpod.io) workspace with the pro
 
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
 
+<<<<<<< HEAD
+=======
+## Development
+
+- This step only applies if you've opted out of having the CLI install dependencies for you:
+  
+  ```sh
+  npx remix init
+  ```
+
+>>>>>>> upstream-main
 - Initial setup: _If you just generated this project, this step has been done for you._
 
 ```shell

@@ -8,6 +8,7 @@ import {
   destroySession,
 } from "./implementation.server";
 import { sessionErrorKey } from "./auth.server";
+
 const USER_SESSION_KEY = "userId";
 
 export async function getUserId(
