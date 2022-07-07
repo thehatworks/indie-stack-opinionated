@@ -14,7 +14,7 @@
     "dev:css": "npm run generate:css -- --env development --watch",
     "dev:remix": "remix watch",
     "dev:serve": "cross-env NODE_ENV=development binode --require ./mocks -- nodemon ./bin/server.ts --watch ./bin/server.ts",
-    "format": "prisma format && prettier --write .",
+    "format": "prisma format && npm run lint -- --fix && prettier --write .",
     "generate:css": "postcss ./styles/main.scss --output ./app/styles/main.css --config ./config/ --verbose",
     "lint": "eslint --config ./config/eslint.config.js --cache --cache-location ./node_modules/.cache/eslint .",
     "setup": "prisma generate && prisma migrate dev && prisma db seed && npm run generate:css -- --env development",
