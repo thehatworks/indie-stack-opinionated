@@ -6,12 +6,24 @@ Learn more about [Remix Stacks](https://remix.run/stacks).
 
 The biggest opinion here is that scaffolding just removes valuable git history that you want on project files!
 
-Don't use this with create-remix, it might not work properly. instead, simply fork or clone the repository, and follow the following steps manually:
+## making an app
 
-- Change app name in `package.json`, `package-lock.json`, `fly.toml`, and `README.md`
-- Delete this first section of README.md
+DON'T use this with create-remix right now, it might not work properly. instead, simply follow the following steps:
 
-(later, remove these steps, and recreate remix.init script in bin as an explicit help with scaffolding)
+make your app's new repo on github as an empty repo, then from your command line:
+
+```shell
+git clone git@github.com:thehatworks/indie-stack-opioninated.git my-new-app
+cd my-new-app
+git remote remove origin
+git remote add upstream git@github.com:thehatworks/indie-stack-opinionated.git
+git remote add origin git@github.com:<yourusername>/<yourproject>.git
+rm TODO.md
+```
+then:
+
+- Change app name in `app/routes/index.tsx`, `package.json`, `package-lock.json`, `fly.toml`, and `README.md`
+- Delete this section of README.md and above, and edit it to contain your app's name and relevant information
 
 ## I just cloned, what do
 
