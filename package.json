@@ -17,7 +17,7 @@
     "lint": "npm run lint:base -- --config ./config/eslint.config.js",
     "lint:base": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:repo": "npm run lint:base -- --config ./config/eslint.config.repo.js",
-    "setup": "prisma generate && prisma migrate deploy && prisma db seed && npm run generate:css -- --env development",
+    "setup": "prisma migrate dev && npm run generate:css -- --env development",
     "start": "node ./bin/server.js",
     "start:mocks": "binode --require ./mocks -- @remix-run/serve:remix-serve build",
     "docker:build": "docker build . -t indie-stack-opinionated:latest",
