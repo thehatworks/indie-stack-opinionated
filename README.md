@@ -64,18 +64,50 @@ The database seed script creates a new user with some data you can use to get st
 
 ### Relevant code:
 
-This is a pretty simple note-taking app, but it's a good example of how you can build a full stack app with Prisma and Remix. The main functionality is creating users, logging in and out, and creating and deleting notes.
 
 - creating users, and logging in and out [./app/models/user.server.ts](./app/models/user.server.ts)
 - user sessions, and verifying them [./app/auth/session.server.ts](./app/session.server.ts)
 - creating, and deleting notes [./app/models/note.server.ts](./app/models/note.server.ts)
-- working with stylesheets (in [SCSS](https://sass-lang.com/guide)
-  - You don't have to deal with official Sass, it's taken care of by PostCSS. 
-  - You Edit [./app/styles/main.scss] to add any manual classes, or just use 
-  - standard and parametric [tailwind classes utility classes](https://tailwindcss.com/docs/utility-first) anywhere in your code and they will be automatically available.
-  - All style code is automatically minimized for production, and in development you get [source maps for easy debugging](https://www.sitepoint.com/using-source-maps-debug-sass-chrome/)
-  - Hint: if you're doing it right, you are /never/ using React's style attribute direction, only class names.
-  - Also, there are several websites with completely ready to go copy-paste React + Tailwind template code for almost every use imaginable.
+
+## Digging in for real development
+
+This is a pretty simple note-taking app, but it's a good example of how you can build a full stack app with the tools provided.
+The core technologies are:
+
+- [Remix](https://docs.remix.run) for building frontend, routing, business and backend code
+- [Prisma](https://www.prisma.io/docs/) for database modeling, querying and lifecycle management
+  - you'll want to familiarize yourself with the prisma cli, and the [prisma schema](./prisma/schema.prisma) file
+    which in this case helps you manage a [SQLite](https://www.sqlite.org/index.html) database
+    via automatic migrations, and a [seed script](./prisma/seed.ts) to make sure your local dev servers always have some data to work with.
+    and [Prisma Studio](https://www.prisma.io/studio) for a visual database browser and editor.
+- [Fly](https://fly.io/docs/) for deployment and hosting.
+  - you'll want to install [flyctl](https://fly.io/docs/getting-started/installing-flyctl/) to manage your deployments.
+- [GitHub Actions](https://docs.github.com/en/actions) for CI/CD
+  - Anything pushed to the `main` branch will be deployed to production copy of your app (after passing a series of tests and a successful build)
+  - Similary, Anything in the `dev` branch will be deployed to the staging copy of your app.
+  - Under the hood, [Docker] is used to build the app for deployment
+  - [Cypress](https://cypress.io) for end-to-end testing
+  - [Vitest](https://vitest.dev) for unit testing
+
+### Working with style
+
+- When at all possible, just use themed elements provided by [daisyUI](https://daisyui.com/)
+  - (and be sure to pick a theme!)
+- When more customization is needed, use [tailwind utility classes](https://tailwindcss.com/docs/utility-first)
+  - The compiler automatically only includes classes you actually use in the final css file
+- Enjoy the free and open icon pack [HeroIcons](https://heroicons.com/), it's already used in the example app
+- And when something even more custom is needed, enjoy the flexibility of [SCSS](https://sass-lang.com/guide)
+  - you can [customize daisyui and tailwind classes](https://daisyui.com/docs/customize/) themselves by adding `@apply` directives to the source scss files.
+- Of course, you can edit [./app/styles/main.scss] to add any kind of global styles you want, and mix tailwind/daisy/anything else via `@apply` directives.
+- All style code is automatically minimized for production by the [cssnano plugin](https://cssnano.co/)
+- In development you get [source maps for easy debugging](https://www.sitepoint.com/using-source-maps-debug-sass-chrome/)
+- Hint: if you're doing it right, you are /never/ using React's style attribute, only existing and custom classnames.
+- If daisyUI doesn't have enough, there are several websites with completely ready to go copy-paste tailwind based code for almost anything.
+  - Here are some to get you started:
+  - [Tailwind Toolbox](https://www.tailwindtoolbox.com/icons)
+  - [Tailwind Kit](https://www.tailwind-kit.com/components)
+- There's a host of preinstalled really useful [PostCSS](https://postcss.org/) plugins, and you can add more if you need them.
+  - Take a look in [./config/postcss.config.js](./config/postcss.config.js) to see what's there already.
 
 ## Deployment
 
@@ -141,10 +173,6 @@ The sqlite database lives at `/data/sqlite.db` in your deployed application. You
 ### Getting Help with Deployment
 
 If you run into any issues deploying to Fly, make sure you've followed all of the steps above and if you have, then post as many details about your deployment (including your app name) to [the Fly support community](https://community.fly.io). They're normally pretty responsive over there and hopefully can help resolve any of your deployment issues and questions.
-
-## GitHub Actions
-
-We use GitHub Actions for continuous integration and deployment. Anything that gets into the `main` branch will be deployed to production after running tests/build/etc. Anything in the `dev` branch will be deployed to staging.
 
 ## Testing
 
