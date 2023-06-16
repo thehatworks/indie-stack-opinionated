@@ -16,7 +16,7 @@ npx create-remix@latest --template remix-run/indie-stack
 - [GitHub Actions](https://github.com/features/actions) for deploy on merge to production and staging environments
 - Email/Password Authentication with [cookie-based sessions](https://remix.run/utils/sessions#md-createcookiesessionstorage)
 - Database ORM with [Prisma](https://prisma.io)
-- Styling with [Tailwind](https://tailwindcss.com/)
+- Styling with [PostCSS](https://postcss.org/) & [Tailwind](https://tailwindcss.com/)
 - End-to-end testing with [Cypress](https://cypress.io)
 - Local third party request mocking with [MSW](https://mswjs.io)
 - Unit testing with [Vitest](https://vitest.dev) and [Testing Library](https://testing-library.com)
@@ -69,6 +69,13 @@ This is a pretty simple note-taking app, but it's a good example of how you can 
 - creating users, and logging in and out [./app/models/user.server.ts](./app/models/user.server.ts)
 - user sessions, and verifying them [./app/session.server.ts](./app/session.server.ts)
 - creating, and deleting notes [./app/models/note.server.ts](./app/models/note.server.ts)
+- working with stylesheets (in [SCSS](https://sass-lang.com/guide)
+  - You don't have to deal with official Sass, it's taken care of by PostCSS. 
+  - You Edit [./app/styles/main.scss] to add any manual classes, or just use 
+  - standard and parametric [tailwind classes utility classes](https://tailwindcss.com/docs/utility-first) anywhere in your code and they will be automatically available.
+  - All style code is automatically minimized for production, and in development you get [source maps for easy debugging](https://www.sitepoint.com/using-source-maps-debug-sass-chrome/)
+  - Hint: if you're doing it right, you are /never/ using React's style attribute direction, only class names.
+  - Also, there are several websites with completely ready to go copy-paste React + Tailwind template code for almost every use imaginable.
 
 ## Deployment
 

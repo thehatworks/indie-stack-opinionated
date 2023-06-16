@@ -90,6 +90,11 @@ export default function Index() {
                 href: "https://tailwindcss.com",
               },
               {
+                src: "https://raw.githubusercontent.com/postcss/brand/master/dist/postcss-logo-vertical.svg",
+                alt: "PostCSS",
+                href: "https://postcss.org",
+              },
+              {
                 src: "https://user-images.githubusercontent.com/1500684/157764454-48ac8c71-a2a9-4b5e-b19c-edef8b8953d6.svg",
                 alt: "Cypress",
                 href: "https://www.cypress.io",
