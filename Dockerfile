@@ -7,6 +7,9 @@ ENV NODE_ENV production
 # Install openssl for Prisma
 RUN apt-get update && apt-get install -y openssl sqlite3
 
+# Bring npm up to newest version
+RUN npm install -g npm@latest
+
 # Install all node_modules, including dev dependencies
 FROM base as deps
 
