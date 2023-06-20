@@ -34,17 +34,35 @@ export default function Index() {
                     <h1>indie-stack-opinionated</h1>
                     <p className="mt-12 sm:mt-16">
                       <a
-                        className="link link-primary"
-                        href="https://github.com/thehatworks/remix-stack"
+                        className="link link-accent"
+                        href="https://github.com/thehatworks/indie-stack-opinionated"
                       >
                         Maintained by @thehatworks
+                      </a>{" "}
+                      as a custom Remix Stack with some rigorous
+                      enhancements.
+                    </p>
+                    <p>
+                      The common theme is write what you mean once, and as much
+                      auto safety and validation as possible. Also some
+                      good-looks good with less effort.
+                    </p>
+                    <p>
+                      Forked originally from{" "}
+                      <a
+                        className="link link-accent"
+                        href="https://github.com/remix-run/indie-stack"
+                      >
+                        @remix-run/indie-stack
                       </a>
-                      &nbsp;as a custom Remix Stack with our common tools.
-                      Forked originally from @remix-run/indie-stack. Approaching
-                      Production Ready in the limit ≐.
+                      , {"&"} approaching Production Ready in the limit ≐.
                     </p>
                     <p className="text-accent mt-4">
-                      Check the README.md file for instructions on how to get
+                      Check the{" "}
+                      <a className="link link-accent" href="https://github.com/thehatworks/indie-stack-opinionated#readme">
+                        README.md
+                      </a>{" "}
+                      file for instructions on how to get
                       this project deployed.
                     </p>
                     {user ? (
