@@ -3,7 +3,6 @@ import { json } from "@remix-run/node";
 import { Link, useSearchParams } from "@remix-run/react";
 
 import { performMutation } from "remix-forms";
-import type { FormProps } from "remix-forms";
 
 import { Form } from "~/forms/form";
 
@@ -33,10 +32,6 @@ export const action = async ({ request }: ActionArgs) => {
   });
 };
 
-const AuthInputForm = (props: FormProps<typeof AuthInputSchema>) => {
-  return <Form<typeof AuthInputSchema> {...props} />;
-};
-
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") ?? "/";
@@ -44,7 +39,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-full flex-col justify-center">
       <div className="mx-auto w-full max-w-md px-8">
-        <AuthInputForm
+        <Form<typeof AuthInputSchema>
           className="base-form"
           schema={AuthInputSchema}
           hiddenFields={["redirectTo"]}
@@ -105,7 +100,7 @@ export default function LoginPage() {
               </div>
             </>
           )}
-        </AuthInputForm>
+        </Form>
       </div>
     </div>
   );
