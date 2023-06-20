@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { recurse } from "cypress-recurse";
 
 describe("unauthorized smoke tests", () => {
   it("fly.io healthcheck should return something expected", () => {
@@ -49,16 +50,38 @@ describe("authorized smoke tests", () => {
 
     // test /join
     cy.findByRole("link", { name: /sign up/i }).click();
-    cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
-    cy.findByLabelText(/password/i).type(loginForm.password);
+    const join_email_box = cy.findByRole("textbox", { name: /email/i });
+    const join_password_box = cy.findByLabelText(/password/i);
+
+    recurse(
+      () => join_email_box.clear().type(loginForm.email),
+      (input) => input.val() === loginForm.email
+    ).should("have.value", loginForm.email);
+
+    recurse(
+      () => join_password_box.clear().type(loginForm.password),
+      (input) => input.val() === loginForm.password
+    ).should("have.value", loginForm.password);
+
     cy.findByRole("button", { name: /create account/i }).click();
     cy.findByRole("link", { name: /notes/i }).click();
     cy.findByRole("button", { name: /logout/i }).click();
 
     // test /login
     cy.findByRole("link", { name: /log in/i }).click();
-    cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
-    cy.findByLabelText(/password/i).type(loginForm.password);
+    const login_email_box = cy.findByRole("textbox", { name: /email/i });
+    const login_password_box = cy.findByLabelText(/password/i);
+
+    recurse(
+      () => login_email_box.clear().type(loginForm.email),
+      (input) => input.val() === loginForm.email
+    ).should("have.value", loginForm.email);
+
+    recurse(
+      () => login_password_box.clear().type(loginForm.password),
+      (input) => input.val() === loginForm.password
+    ).should("have.value", loginForm.password);
+
     cy.findByRole("button", { name: /log in/i }).click();
     cy.findByRole("button", { name: /logout/i }).click();
     cy.findByRole("link", { name: /log in/i });
