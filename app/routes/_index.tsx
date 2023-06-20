@@ -188,23 +188,28 @@ export default function Index() {
                   href: "https://github.com/sergiodxa/remix-auth",
                   label: "remix-auth",
                   author: "@sergiodxa",
+                  author_href: "https://github.com/sergiodxa",
                 },
                 {
                   href: "https://remix-forms.seasoned.cc",
                   label: "remix-forms + remix-domains",
                   author: "Seasoned.cc",
+                  author_href: "https://github.com/seasonedcc",
                 },
                 {
                   href: "https://github.com/CarterGrimmeisen/zod-prisma",
                   label: "zod-prisma",
                   author: "Carter Grimmeisen",
+                  author_href: "https://github.com/CarterGrimmeisen/",
                 },
               ].map((link) => (
                 <li className="mt-8" key={link.label}>
                   <a href={link.href} className="btn btn-primary">
                     {link.label}
                   </a>
-                  <span className="ml-1">({link.author})</span>
+                  <a href={link.author_href} className="ml-1">
+                    ({link.author})
+                  </a>
                 </li>
               ))}
             </ul>
