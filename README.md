@@ -206,6 +206,28 @@ The sqlite database lives at `/data/sqlite.db` in your deployed application. You
 
 If you run into any issues deploying to Fly, make sure you've followed all of the steps above and if you have, then post as many details about your deployment (including your app name) to [the Fly support community](https://community.fly.io). They're normally pretty responsive over there and hopefully can help resolve any of your deployment issues and questions.
 
+## CI/CD Notes
+
+For absolute extra reliability in keeping your dependencies in line, you may want to consider checking in your `package-lock.json` file. If you do this, it is also recommended to apply the following patch to your `Dockerfile`:
+
+```patch
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -15,8 +15,8 @@ FROM base as deps
+
+ WORKDIR /myapp
+
+-ADD package.json .npmrc ./
+-RUN npm install --include=dev
++ADD package.json package-lock.json .npmrc ./
++RUN npm ci --include=dev
+
+ # Setup production node_modules
+ FROM base as production-deps
+```
+
+This will extra-paranoia-lock-down your dependency tree 100% between development, testing, and production.
+
 ## Testing
 
 ### Cypress
