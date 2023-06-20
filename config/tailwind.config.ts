@@ -7,6 +7,9 @@ export default {
   // jit-mode for custom on-demand utilities
   mode: "jit",
   content: ["../app/**/*.{js,jsx,ts,tsx}"],
+  daisyui: {
+    themes: ["dark", "light"],
+  },
   theme: {
     extend: {
       spacing: {
